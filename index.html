@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Castration Exam Study Guide - Interactive</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            line-height: 1.8;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .controls {
+            background: #f8f9fa;
+            padding: 20px;
+            border-bottom: 2px solid #e9ecef;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+
+        .btn-info {
+            background: #17a2b8;
+            color: white;
+        }
+
+        .btn-info:hover {
+            background: #138496;
+            transform: translateY(-2px);
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+        }
+
+        .section-title {
+            color: #667eea;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .question {
+            background: white;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .question:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transform: translateY(-2px);
+        }
+
+        .question-number {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .question-text {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            cursor: pointer;
+        }
+
+        .question-text:hover {
+            color: #667eea;
+        }
+
+        .answer {
+            background: #e8f4f8;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border-left: 4px solid #17a2b8;
+        }
+
+        .answer-hidden {
+            display: none;
+        }
+
+        .answer h4 {
+            color: #17a2b8;
+            margin-bottom: 10px;
+        }
+
+        .clickable-word {
+            cursor: pointer;
+            padding: 2px 5px;
+            border-radius: 3px;
+            transition: all 0.2s;
+            display: inline-block;
+        }
+
+        .clickable-word:hover {
+            background: #fff3cd;
+            transform: scale(1.05);
+        }
+
+        .translation-popup {
+            position: fixed;
+            background: white;
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            z-index: 1000;
+            max-width: 300px;
+            display: none;
+        }
+
+        .translation-popup.show {
+            display: block;
+        }
+
+        .translation-header {
+            background: #667eea;
+            color: white;
+            padding: 10px;
+            margin: -15px -15px 10px -15px;
+            border-radius: 8px 8px 0 0;
+            font-weight: bold;
+        }
+
+        .translation-content {
+            padding: 10px 0;
+        }
+
+        .translation-text {
+            color: #28a745;
+            font-size: 1.2em;
+            font-weight: bold;
+            direction: rtl;
+            text-align: right;
+        }
+
+        .close-popup {
+            float: right;
+            cursor: pointer;
+            font-size: 20px;
+            line-height: 1;
+        }
+
+        ul, ol {
+            margin-left: 25px;
+            margin-top: 10px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .highlight-term {
+            background: #fff3cd;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+
+        .toggle-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        .toggle-btn:hover {
+            background: #218838;
+        }
+
+        .arabic-text {
+            color: #dc3545;
+            font-weight: 600;
+            direction: rtl;
+            display: inline-block;
+        }
+
+        .footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9em;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: #e9ecef;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+            
+            .controls {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+
+        .speaking {
+            animation: pulse 0.8s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>🎓 Castration Exam Study Guide</h1>
+            <p>Interactive Learning with Audio & Translation</p>
+            <p style="font-size: 0.9em; margin-top: 10px;">دليل دراسة الإخصاء التفاعلي</p>
+        </div>
+
+        <div class="controls">
+            <button class="btn btn-primary" onclick="toggleAllAnswers()">
+                📖 Show/Hide All Answers
+            </button>
+            <button class="btn btn-success" onclick="readEntirePage()">
+                🔊 Read Entire Page
+            </button>
+            <button class="btn btn-info" onclick="stopSpeaking()">
+                ⏹️ Stop Reading
+            </button>
+            <select id="voiceSelect" class="btn btn-primary" onchange="changeVoice()">
+                <option value="">Select Voice</option>
+            </select>
+        </div>
+
+        <div class="content" id="mainContent">
+            
+            <!-- Section 1: Definitions -->
+            <div class="section">
+                <h2 class="section-title">Section 1: Definitions and Terminology</h2>
+                
+                <div class="question">
+                    <span class="question-number">Q1</span>
+                    <div class="question-text" onclick="speak(this)">
+                        Define <span class="clickable-word" onclick="translateWord(event, 'castration', 'الإخصاء')">castration</span> and list 5 <span class="clickable-word" onclick="translateWord(event, 'synonyms', 'المرادفات')">synonyms</span> for this procedure.
+                    </div>
+                    <button class="toggle-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="answer answer-hidden">
+                        <h4>Answer:</h4>
+                        <p onclick="speak(this)">
+                            <span class="clickable-word" onclick="translateWord(event, 'Castration', 'الإخصاء')">Castration</span> means removal of the <span class="clickable-word" onclick="translateWord(event, 'testis', 'الخصية')">testis</span>(es) and associated structures such as <span class="clickable-word" onclick="translateWord(event, 'epididymis', 'البربخ')">epididymis</span> and part of the <span class="clickable-word" onclick="translateWord(event, 'spermatic cord', 'الحبل المنوي')">spermatic cord</span>.
+                        </p>
+                        <p><strong>Synonyms:</strong></p>
+                        <ol onclick="speak(this)">
+                            <li><span class="clickable-word" onclick="translateWord(event, 'Sterilization', 'التعقيم')">Sterilization</span> <span class="arabic-text">(التعقيم)</span></li>
+                            <li><span class="clickable-word" onclick="translateWord(event, 'Gonadectomy', 'استئصال الغدد التناسلية')">Gonadectomy</span> <span class="arabic-text">(استئصال الغدد التناسلية)</span></li>
+                            <li><span class="clickable-word" onclick="translateWord(event, 'Orchiectomy', 'استئصال الخصية')">Orchiectomy</span> <span class="arabic-text">(استئصال الخصية)</span></li>
+                            <li><span class="clickable-word" onclick="translateWord(event, 'Neutering', 'الخصي')">Neutering</span> <span class="arabic-text">(الخصي)</span></li>
+                            <li><span class="clickable-word" onclick="translateWord(event, 'Gelding', 'إخصاء الحصان')">Gelding</span> (in horse) <span class="arabic-text">(إخصاء الحصان)</span></li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <span class="question-number">Q2</span>
+                    <div class="question-text" onclick="speak(this)">
+                        What is the best age for <span class="clickable-word" onclick="translateWord(event, 'castration', 'الإخصاء')">castration</span> in different <span class="clickable-word" onclick="translateWord(event, 'species', 'الأنواع')">species</span>?
+                    </div>
+                    <button class="toggle-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="answer answer-hidden">
+                        <h4>Answer:</h4>
+                        <ul onclick="speak(this)">
+                            <li><span class="clickable-word" onclick="translateWord(event, 'Cattle', 'الأبقار')">Cattle</span> <span class="arabic-text">(الأبقار)</span>: <strong>1-2 months</strong></li>
+                            <li><span class="clickable-word" onclick="translateWord(event, 'Sheep and Goat', 'الأغنام والماعز')">Sheep and Goat</span> <span class="arabic-text">(الأغنام والماعز)</span>: <strong>2-3 weeks</strong></li>
+                            <li><span class="clickable-word" onclick="translateWord(event, 'Horse', 'الخيول')">Horse</span> <span class="arabic-text">(الخيول)</span>: <strong>1-1.5 years</strong></li>
+                            <li><span class="clickable-word" onclick="translateWord(event, 'Pig', 'الخنازير')">Pig</span> <span class="arabic-text">(الخنازير)</span>: <strong>First week</strong></li>
+                            <li><span class="clickable-word" onclick="translateWord(event, 'Dog and Cats', 'الكلاب والقطط')">Dog and Cats</span> <span class="arabic-text">(الكلاب والقطط)</span>: <strong>6-9 months</strong></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 2: Anatomy -->
+            <div class="section">
+                <h2 class="section-title">Section 2: Anatomy</h2>
+                
+                <div class="question">
+                    <span class="question-number">Q3</span>
+                    <div class="question-text" onclick="speak(this)">
+                        Describe the <span class="clickable-word" onclick="translateWord(event, 'blood supply', 'الإمداد الدموي')">blood supply</span> to the testes. Where do the right and left <span class="clickable-word" onclick="translateWord(event, 'testicular veins', 'الأوردة الخصوية')">testicular veins</span> drain?
+                    </div>
+                    <button class="toggle-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="answer answer-hidden">
+                        <h4>Answer:</h4>
+                        <ul onclick="speak(this)">
+                            <li>The <span class="highlight-term">testicular arteries</span> <span class="arabic-text">(الشرايين الخصوية)</span> arise from the ventral surface of the <span class="clickable-word" onclick="translateWord(event, 'aorta', 'الأبهر')">aorta</span> at the level of the fourth lumbar vertebra</li>
+                            <li>Within the <span class="clickable-word" onclick="translateWord(event, 'spermatic cord', 'الحبل المنوي')">spermatic cord</span>, the testicular vein forms the <span class="highlight-term">pampiniform plexus</span> <span class="arabic-text">(الضفيرة المشطية)</span> which wraps around the artery for countercurrent heat exchange</li>
+                            <li>The <span class="highlight-term">right testicular vein</span> drains into the <span class="clickable-word" onclick="translateWord(event, 'caudal vena cava', 'الوريد الأجوف الذيلي')">caudal vena cava</span></li>
+                            <li>The <span class="highlight-term">left testicular vein</span> drains into the <span class="clickable-word" onclick="translateWord(event, 'left renal vein', 'الوريد الكلوي الأيسر')">left renal vein</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <span class="question-number">Q4</span>
+                    <div class="question-text" onclick="speak(this)">
+                        What structures are contained in the <span class="clickable-word" onclick="translateWord(event, 'spermatic cord', 'الحبل المنوي')">spermatic cord</span>?
+                    </div>
+                    <button class="toggle-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="answer answer-hidden">
+                        <h4>Answer:</h4>
+                        <p onclick="speak(this)">The spermatic cord contains:</p>
+                        <ol onclick="speak(this)">
+                            <li><span class="clickable-word" onclick="translateWord(event, 'Ductus deferens', 'القناة الناقلة للمني')">Ductus deferens</span> <span class="arabic-text">(القناة الناقلة للمني)</span></li>
+                            <li>Ductus deferens <span class="clickable-word" onclick="translateWord(event, 'artery and vein', 'الشريان والوريد')">artery and vein</span></li>
+                            <li><span class="clickable-word" onclick="translateWord(event, 'Testicular artery', 'الشريان الخصوي')">Testicular artery</span> <span class="arabic-text">(الشريان الخصوي)</span></li>
+                            <li><span class="clickable-word" onclick="translateWord(event, 'Pampiniform plexus', 'الضفيرة المشطية')">Pampiniform plexus</span> <span class="arabic-text">(الضفيرة المشطية)</span></li>
+                            <li><span class="clickable-word" onclick="translateWord(event, 'Lymphatic vessels', 'الأوعية الليمفاوية')">Lymphatic vessels</span> <span class="arabic-text">(الأوعية الليمفاوية)</span></li>
+                            <li><span class="clickable-word" onclick="translateWord(event, 'Nerves', 'الأعصاب')">Nerves</span> <span class="arabic-text">(الأعصاب)</span></li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <span class="question-number">Q5</span>
+                    <div class="question-text" onclick="speak(this)">
+                        List the layers covering the <span class="clickable-word" onclick="translateWord(event, 'testis', 'الخصية')">testis</span> from outside to inside.
+                    </div>
+                    <button class="toggle-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="answer answer-hidden">
+                        <h4>Answer:</h4>
+                        <ol onclick="speak(this)">
+                            <li><span class="clickable-word" onclick="translateWord(event, 'Skin', 'الجلد')">Skin</span> <span class="arabic-text">(الجلد)</span></li>
+                            <li><span class="clickable-word" onclick="translateWord(event, 'Dartos muscle', 'عضلة الصفن')">Dartos muscle</span> <span class="arabic-text">(عضلة الصفن)</span></li>
+                            <li><span class="clickable-word" onclick="translateWord(event, 'External spermatic fascia', 'اللفافة المنوية الخارجية')">External spermatic fascia</span> <span class="arabic-text">(اللفافة المنوية الخارجية)</span></li>
+                            <li><span class="clickable-word" onclick="translateWord(event, 'Cremaster muscle', 'العضلة المعلقة')">Cremaster muscle</span> <span class="arabic-text">(العضلة المعلقة)</span></li>
+                            <li><span class="clickable-word" onclick="translateWord(event, 'Internal spermatic fascia', 'اللفافة المنوية الداخلية')">Internal spermatic fascia</span> <span class="arabic-text">(اللفافة المنوية الداخلية)</span></li>
+                            <li><span class="clickable-word" onclick="translateWord(event, 'Tunica vaginalis - parietal layer', 'الغلالة الغمدية - الطبقة الجدارية')">Tunica vaginalis - parietal layer</span> <span class="arabic-text">(الغلالة الغمدية - الطبقة الجدارية)</span></li>
+                            <li><span class="clickable-word" onclick="translateWord(event, 'Tunica vaginalis - visceral layer', 'الغلالة الغمدية - الطبقة الحشوية')">Tunica vaginalis - visceral layer</span> <span class="arabic-text">(الغلالة الغمدية - الطبقة الحشوية)</span></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 3: Indications -->
+            <div class="section">
+                <h2 class="section-title">Section 3: Indications for Castration</h2>
+                
+                <div class="question">
+                    <span class="question-number">Q6</span>
+                    <div class="question-text" onclick="speak(this)">
+                        List 10 <span class="clickable-word" onclick="translateWord(event, 'indications', 'دواعي')">indications</span> for castration.
+                    </div>
+                    <button class="toggle-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="answer answer-hidden">
+                        <h4>Answer:</h4>
+                        <ol onclick="speak(this)">
+                            <li>To stop production of male <span class="clickable-word" onclick="translateWord(event, 'hormones', 'الهرمونات')">hormones</span> and semen <span class="arabic-text">(وقف إنتاج الهرمونات الذكرية والمني)</span></li>
+                            <li>To prevent mating of young females before adequate physical state</li>
+                            <li>To produce docile animals easier to handle <span class="arabic-text">(إنتاج حيوانات أكثر هدوءاً)</span></li>
+                            <li>To decrease <span class="clickable-word" onclick="translateWord(event, 'aggressiveness', 'العدوانية')">aggressiveness</span> and mounting activity <span class="arabic-text">(تقليل العدوانية)</span></li>
+                            <li>To enhance on-farm safety</li>
+                            <li>To promote <span class="clickable-word" onclick="translateWord(event, 'weight gain', 'زيادة الوزن')">weight gain</span> in meat animals <span class="arabic-text">(تعزيز زيادة الوزن)</span></li>
+                            <li>To increase growth rates and aid in fattening</li>
+                            <li>To decrease costs of fencing and handling</li>
+                            <li>To avoid transmission of <span class="clickable-word" onclick="translateWord(event, 'venereal diseases', 'الأمراض الجنسية')">venereal diseases</span> <span class="arabic-text">(تجنب انتقال الأمراض الجنسية)</span></li>
+                            <li>To treat pathological conditions: testicular tumors, prostate cancer, scrotal hernia, torsion of spermatic cord, varicocele, hematocele, hydrocele, spermatic granuloma, cryptorchidism, chronic orchitis/epididymitis</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 4: Anesthesia -->
+            <div class="section">
+                <h2 class="section-title">Section 4: Anesthesia for Castration</h2>
+                
+                <div class="question">
+                    <span class="question-number">Q7</span>
+                    <div class="question-text" onclick="speak(this)">
+                        What <span class="clickable-word" onclick="translateWord(event, 'anesthetic protocols', 'بروتوكولات التخدير')">anesthetic protocols</span> are used for castration in male ruminants?
+                    </div>
+                    <button class="toggle-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="answer answer-hidden">
+                        <h4>Answer:</h4>
+                        <p onclick="speak(this)"><strong>For Rubber Ring Castration:</strong></p>
+                        <ul onclick="speak(this)">
+                            <li><span class="clickable-word" onclick="translateWord(event, 'Local anesthetic', 'مخدر موضعي')">Local anesthetic</span> applied before rings to allow rapid transport to spermatic vein and lymphatic</li>
+                        </ul>
+                        <p onclick="speak(this)"><strong>For Burdizzo Castration:</strong></p>
+                        <ul onclick="speak(this)">
+                            <li>Local anesthetic injected subcutaneously into the spermatic cord</li>
+                        </ul>
+                        <p onclick="speak(this)"><strong>For Surgical Castration:</strong></p>
+                        <ul onclick="speak(this)">
+                            <li>Local anesthetic ± 2% <span class="clickable-word" onclick="translateWord(event, 'xylazine', 'زيلازين')">xylazine</span> (IM)</li>
+                            <li><span class="clickable-word" onclick="translateWord(event, 'Subcutaneous infiltration', 'تسلل تحت الجلد')">Subcutaneous infiltration</span> of the scrotum</li>
+                            <li><span class="highlight-term">Lidocaine 2%</span> injected into each spermatic cord</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <span class="question-number">Q8</span>
+                    <div class="question-text" onclick="speak(this)">
+                        What <span class="clickable-word" onclick="translateWord(event, 'anesthesia', 'التخدير')">anesthesia</span> is used for equine castration?
+                    </div>
+                    <button class="toggle-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="answer answer-hidden">
+                        <h4>Answer:</h4>
+                        <ul onclick="speak(this)">
+                            <li><span class="clickable-word" onclick="translateWord(event, 'General anesthesia', 'تخدير عام')">General anesthesia</span>: Ultra-short acting barbiturate (thiopentone sodium) IV in jugular vein</li>
+                            <li><strong>Plus</strong> local anesthesia at scrotal incision site</li>
+                            <li><strong>Alternative:</strong> Ketamine-xylazine mixture at 2.2 mg/kg and 1.1 mg/kg BW</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <span class="question-number">Q9</span>
+                    <div class="question-text" onclick="speak(this)">
+                        What anesthesia is used for canine castration?
+                    </div>
+                    <button class="toggle-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="answer answer-hidden">
+                        <h4>Answer:</h4>
+                        <ul onclick="speak(this)">
+                            <li>General anesthesia: Mixture of <span class="clickable-word" onclick="translateWord(event, 'ketamine-xylazine', 'كيتامين-زيلازين')">ketamine-xylazine</span></li>
+                            <li><strong>Dog dose:</strong> Ketamine 15 mg/kg + Xylazine 5 mg/kg BW</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 5: Methods -->
+            <div class="section">
+                <h2 class="section-title">Section 5: Methods of Castration</h2>
+                
+                <div class="question">
+                    <span class="question-number">Q10</span>
+                    <div class="question-text" onclick="speak(this)">
+                        List the two main categories of castration <span class="clickable-word" onclick="translateWord(event, 'methods', 'طرق')">methods</span> with their subcategories.
+                    </div>
+                    <button class="toggle-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="answer answer-hidden">
+                        <h4>Answer:</h4>
+                        <p onclick="speak(this)"><strong>1. Non-Surgical (Bloodless) Methods</strong> <span class="arabic-text">(الطرق غير الجراحية)</span>:</p>
+                        <ul onclick="speak(this)">
+                            <li>A. <span class="clickable-word" onclick="translateWord(event, 'Rubber Ring Castration', 'الإخصاء بالحلقة المطاطية')">Rubber Ring Castration</span></li>
+                            <li>B. <span class="clickable-word" onclick="translateWord(event, 'Burdizzo Castration', 'إخصاء بورديزو')">Burdizzo Castration</span></li>
+                            <li>C. <span class="clickable-word" onclick="translateWord(event, 'Chemical Castration', 'الإخصاء الكيميائي')">Chemical Castration</span></li>
+                            <li>D. <span class="clickable-word" onclick="translateWord(event, 'Immuno-Castration', 'الإخصاء المناعي')">Immuno-Castration</span></li>
+                            <li>E. Parasitic Castration</li>
+                        </ul>
+                        <p onclick="speak(this)"><strong>2. Surgical Castration</strong> <span class="arabic-text">(الطرق الجراحية)</span>:</p>
+                        <ul onclick="speak(this)">
+                            <li>A. <span class="clickable-word" onclick="translateWord(event, 'Closed Castration', 'الإخصاء المغلق')">Closed Castration</span></li>
+                            <li>B. <span class="clickable-word" onclick="translateWord(event, 'Open Castration', 'الإخصاء المفتوح')">Open Castration</span></li>
+                            <li>C. <span class="clickable-word" onclick="translateWord(event, 'Scrotal Ablation', 'استئصال كيس الصفن')">Scrotal Ablation</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <span class="question-number">Q11</span>
+                    <div class="question-text" onclick="speak(this)">
+                        Describe the <span class="clickable-word" onclick="translateWord(event, 'rubber ring', 'حلقة مطاطية')">rubber ring</span> (elastrator) castration method.
+                    </div>
+                    <button class="toggle-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="answer answer-hidden">
+                        <h4>Answer:</h4>
+                        <p onclick="speak(this)"><strong>Used for:</strong> Calves or lambs from birth to 3 weeks of age</p>
+                        <p onclick="speak(this)"><strong>Technique:</strong></p>
+                        <ul onclick="speak(this)">
+                            <li>Constrictive rubber ring applied to scrotal neck using <span class="clickable-word" onclick="translateWord(event, 'elastrator', 'أداة تطبيق الحلقة المطاطية')">elastrator</span></li>
+                            <li>Both testes must be distal to the ring</li>
+                            <li>Blood flow is obstructed</li>
+                            <li>Testes and <span class="clickable-word" onclick="translateWord(event, 'scrotum', 'الصفن')">scrotum</span> <span class="clickable-word" onclick="translateWord(event, 'atrophy', 'تضمر')">atrophy</span> and drop off after 4-6 weeks</li>
+                        </ul>
+                        <p onclick="speak(this)"><strong>Advantages:</strong> Quick and easy</p>
+                        <p onclick="speak(this)"><strong>Disadvantages:</strong></p>
+                        <ul onclick="speak(this)">
+                            <li>Slow <span class="clickable-word" onclick="translateWord(event, 'wound healing', 'التئام الجروح')">wound healing</span></li>
+                            <li><span class="clickable-word" onclick="translateWord(event, 'Infection', 'عدوى')">Infection</span> risk</li>
+                            <li>Band may break</li>
+                            <li>Painful in older calves without anesthesia (inhumane)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <span class="question-number">Q12</span>
+                    <div class="question-text" onclick="speak(this)">
+                        Describe the <span class="clickable-word" onclick="translateWord(event, 'Burdizzo', 'بورديزو')">Burdizzo</span> castration method.
+                    </div>
+                    <button class="toggle-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="answer answer-hidden">
+                        <h4>Answer:</h4>
+                        <p onclick="speak(this)"><strong>Technique:</strong> Scrotum is NOT opened; testicular vasculature is only <span class="clickable-word" onclick="translateWord(event, 'crushed', 'محطم')">crushed</span>, not cut</p>
+                        <p onclick="speak(this)"><strong>Suggested for:</strong> Immature males 1-3 months</p>
+                        <p onclick="speak(this)"><strong>Procedure:</strong></p>
+                        <ul onclick="speak(this)">
+                            <li>Instrument placed across each <span class="clickable-word" onclick="translateWord(event, 'spermatic cord', 'الحبل المنوي')">spermatic cord</span> individually</li>
+                            <li>Cord held against lateral wall of scrotum</li>
+                            <li>Each cord crushed <strong>TWICE</strong> midway between testicle and scrotum-belly junction</li>
+                            <li>Second crushing 1 cm below first site</li>
+                            <li>Burdizzo remains on cord for few seconds</li>
+                        </ul>
+                        <p onclick="speak(this)"><strong>Result:</strong> Testes <span class="clickable-word" onclick="translateWord(event, 'atrophy', 'تضمر')">atrophy</span>, scrotum remains intact</p>
+                        <p onclick="speak(this)"><strong>Advantages:</strong> Eliminates infection and excessive hemorrhage risk when done properly</p>
+                        <p onclick="speak(this)"><strong>Disadvantages:</strong> Possible injuries/infection, technique failure</p>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <span class="question-number">Q13</span>
+                    <div class="question-text" onclick="speak(this)">
+                        What agents are used for <span class="clickable-word" onclick="translateWord(event, 'chemical castration', 'الإخصاء الكيميائي')">chemical castration</span>? What are the complications?
+                    </div>
+                    <button class="toggle-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="answer answer-hidden">
+                        <h4>Answer:</h4>
+                        <p onclick="speak(this)"><strong>Agents:</strong></p>
+                        <ul onclick="speak(this)">
+                            <li><span class="clickable-word" onclick="translateWord(event, 'Formalin', 'الفورمالين')">Formalin</span>, Alcohol, Acetic acid, Lactic acid, HCL, Phenol, Sodium chloride, Argentine, Sodium bicarbonate, Neutersol, Iodine</li>
+                        </ul>
+                        <p onclick="speak(this)"><strong>Complications:</strong></p>
+                        <ul onclick="speak(this)">
+                            <li><span class="clickable-word" onclick="translateWord(event, 'Pain', 'ألم')">Pain</span> <span class="arabic-text">(ألم)</span></li>
+                            <li><span class="clickable-word" onclick="translateWord(event, 'Inflammation', 'التهاب')">Inflammation</span> <span class="arabic-text">(التهاب)</span></li>
+                            <li><span class="clickable-word" onclick="translateWord(event, 'Infection', 'عدوى')">Infection</span> <span class="arabic-text">(عدوى)</span></li>
+                            <li>Scrotal <span class="clickable-word" onclick="translateWord(event, 'ulcers', 'تقرحات')">ulcers</span> or <span class="clickable-word" onclick="translateWord(event, 'necrosis', 'نخر')">necrosis</span> <span class="arabic-text">(تقرحات أو نخر الصفن)</span></li>
+                            <li>Draining tracts</li>
+                            <li>Testicular necrosis</li>
+                            <li>May have sperm up to 60 days after injection</li>
+                            <li>Some fail to achieve azoospermia</li>
+                            <li>Testosterone still present, so behaviors not eliminated</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <span class="question-number">Q14</span>
+                    <div class="question-text" onclick="speak(this)">
+                        Describe the technique of <span class="clickable-word" onclick="translateWord(event, 'open surgical castration', 'الإخصاء الجراحي المفتوح')">open surgical castration</span> in ruminants.
+                    </div>
+                    <button class="toggle-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="answer answer-hidden">
+                        <h4>Answer:</h4>
+                        <p onclick="speak(this)"><strong>Steps:</strong></p>
+                        <ol onclick="speak(this)">
+                            <li>Hold one testis firmly so scrotum is pulled tight</li>
+                            <li>Make <span class="clickable-word" onclick="translateWord(event, 'incision', 'شق')">incision</span> in <strong>distal third of scrotum</strong> <span class="arabic-text">(الثلث البعيد من الصفن)</span></li>
+                            <li>Apply pressure to expose testis covered by <span class="clickable-word" onclick="translateWord(event, 'tunica vaginalis', 'الغلالة الغمدية')">tunica vaginalis</span></li>
+                            <li><strong>Open the tunica vaginalis</strong> <span class="arabic-text">(فتح الغلالة الغمدية)</span> - KEY DIFFERENCE from closed method</li>
+                            <li>Blunt dissection to expose spermatic cord</li>
+                            <li><span class="clickable-word" onclick="translateWord(event, 'Transfixing ligation', 'ربط ثاقب')">Transfixing ligation</span> of spermatic cord with non-absorbable suture (silk)</li>
+                            <li>Fix <span class="clickable-word" onclick="translateWord(event, 'emasculator', 'مخصي')">emasculator</span> on cord in front of ligation to crush and cut (1-2 minutes)</li>
+                            <li>Remove testis</li>
+                            <li><strong>Leave scrotal wound open</strong> - heals by secondary intention</li>
+                            <li>Repeat on other testis</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <span class="question-number">Q15</span>
+                    <div class="question-text" onclick="speak(this)">
+                        What is the difference between <span class="clickable-word" onclick="translateWord(event, 'closed', 'مغلق')">closed</span> and <span class="clickable-word" onclick="translateWord(event, 'open castration', 'إخصاء مفتوح')">open castration</span>?
+                    </div>
+                    <button class="toggle-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="answer answer-hidden">
+                        <h4>Answer:</h4>
+                        <p onclick="speak(this)"><strong>Closed Castration</strong> <span class="arabic-text">(الإخصاء المغلق)</span>:</p>
+                        <ul onclick="speak(this)">
+                            <li>Tunica vaginalis is <strong>NOT opened</strong></li>
+                            <li>Testis remains within its coverings</li>
+                            <li>Entire spermatic cord with tunica is ligated together</li>
+                        </ul>
+                        <p onclick="speak(this)"><strong>Open Castration</strong> <span class="arabic-text">(الإخصاء المفتوح)</span>:</p>
+                        <ul onclick="speak(this)">
+                            <li>Tunica vaginalis <strong>IS opened/incised</strong></li>
+                            <li>Testis is separated from tunica</li>
+                            <li>Individual structures of spermatic cord can be ligated separately</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <span class="question-number">Q16</span>
+                    <div class="question-text" onclick="speak(this)">
+                        Where is the <span class="clickable-word" onclick="translateWord(event, 'incision', 'شق')">incision</span> made for castration in different species?
+                    </div>
+                    <button class="toggle-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="answer answer-hidden">
+                        <h4>Answer:</h4>
+                        <ul onclick="speak(this)">
+                            <li><span class="clickable-word" onclick="translateWord(event, 'Ruminants', 'المجترات')">Ruminants</span>: <strong>Distal third of scrotum</strong> <span class="arabic-text">(الثلث البعيد)</span></li>
+                            <li><span class="clickable-word" onclick="translateWord(event, 'Equine', 'الخيول')">Equine</span>: <strong>Middle of scrotum</strong> <span class="arabic-text">(منتصف الصفن)</span></li>
+                            <li><span class="clickable-word" onclick="translateWord(event, 'Canine', 'الكلاب')">Canine</span>: <strong>Middle of scrotum</strong> (prescrotal incision) <span class="arabic-text">(شق أمام الصفن)</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 6: Post-Operative Care -->
+            <div class="section">
+                <h2 class="section-title">Section 6: Post-Operative Care</h2>
+                
+                <div class="question">
+                    <span class="question-number">Q17</span>
+                    <div class="question-text" onclick="speak(this)">
+                        What are the <span class="clickable-word" onclick="translateWord(event, 'post-operative cares', 'الرعاية بعد العملية')">post-operative cares</span> after surgical castration?
+                    </div>
+                    <button class="toggle-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="answer answer-hidden">
+                        <h4>Answer:</h4>
+                        <ol onclick="speak(this)">
+                            <li>Animal in <span class="clickable-word" onclick="translateWord(event, 'separated, clean, dry place', 'مكان نظيف وجاف منفصل')">separated, clean, dry place</span></li>
+                            <li><span class="clickable-word" onclick="translateWord(event, 'Vaccinate', 'تلقيح')">Vaccinate</span> with <span class="clickable-word" onclick="translateWord(event, 'anti-tetanic serum', 'مصل مضاد للكزاز')">anti-tetanic serum</span> to avoid Clostridial infection</li>
+                            <li><span class="clickable-word" onclick="translateWord(event, 'Systemic antibiotics', 'مضادات حيوية جهازية')">Systemic antibiotics</span> for 3-5 days</li>
+                            <li><span class="clickable-word" onclick="translateWord(event, 'Daily inspection', 'فحص يومي')">Daily inspection</span> of scrotal wound for at least first week post-surgery</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 7: Complications -->
+            <div class="section">
+                <h2 class="section-title">Section 7: Complications</h2>
+                
+                <div class="question">
+                    <span class="question-number">Q18</span>
+                    <div class="question-text" onclick="speak(this)">
+                        List 7 <span class="clickable-word" onclick="translateWord(event, 'post-operative complications', 'مضاعفات بعد العملية')">post-operative complications</span> of surgical castration.
+                    </div>
+                    <button class="toggle-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="answer answer-hidden">
+                        <h4>Answer:</h4>
+                        <ol onclick="speak(this)">
+                            <li><span class="clickable-word" onclick="translateWord(event, 'Infection', 'عدوى')">Infection</span> due to open wound → may cause <span class="clickable-word" onclick="translateWord(event, 'peritonitis', 'التهاب الصفاق')">peritonitis</span></li>
+                            <li>Infection of spermatic cord → cystic or scirrhous cord <span class="arabic-text">(حبل منوي كيسي)</span></li>
+                            <li>Scrotal <span class="clickable-word" onclick="translateWord(event, 'bruising', 'كدمات')">bruising</span> <span class="arabic-text">(كدمات الصفن)</span></li>
+                            <li><span class="clickable-word" onclick="translateWord(event, 'Bleeding', 'نزيف')">Bleeding</span> from spermatic cord vessels <span class="arabic-text">(نزيف)</span></li>
+                            <li>Scrotal <span class="clickable-word" onclick="translateWord(event, 'swelling', 'تورم')">swelling</span> <span class="arabic-text">(تورم الصفن)</span></li>
+                            <li>Scrotal <span class="clickable-word" onclick="translateWord(event, 'hematoma', 'ورم دموي')">hematoma</span> <span class="arabic-text">(ورم دموي)</span></li>
+                            <li><span class="highlight-term">Eventration</span> - intestinal prolapse through inguinal ring (mainly in open technique) <span class="arabic-text">(انفتاق الأمعاء)</span> - <strong>MOST SERIOUS</strong></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 8: Clinical Notes -->
+            <div class="section">
+                <h2 class="section-title">Section 8: Important Clinical Notes</h2>
+                
+                <div class="question">
+                    <span class="question-number">Q19</span>
+                    <div class="question-text" onclick="speak(this)">
+                        What two things must you check before performing castration?
+                    </div>
+                    <button class="toggle-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="answer answer-hidden">
+                        <h4>Answer:</h4>
+                        <ol onclick="speak(this)">
+                            <li><span class="clickable-word" onclick="translateWord(event, 'Both testicles have descended', 'نزول كلتا الخصيتين')">Both testicles have descended</span> into the scrotum <span class="arabic-text">(نزول كلتا الخصيتين)</span></li>
+                            <li><span class="clickable-word" onclick="translateWord(event, 'No scrotal hernia', 'عدم وجود فتق صفني')">No scrotal hernia</span> present <span class="arabic-text">(عدم وجود فتق صفني)</span></li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <span class="question-number">Q20</span>
+                    <div class="question-text" onclick="speak(this)">
+                        Why are surgical castrations considered the most certain method?
+                    </div>
+                    <button class="toggle-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="answer answer-hidden">
+                        <h4>Answer:</h4>
+                        <p onclick="speak(this)">
+                            Because the <span class="clickable-word" onclick="translateWord(event, 'testicles are removed completely', 'إزالة الخصيتين بالكامل')">testicles are removed completely</span> <span class="arabic-text">(إزالة الخصيتين بالكامل)</span>, unlike bloodless methods where testicles may remain but become non-functional.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <span class="question-number">Q21</span>
+                    <div class="question-text" onclick="speak(this)">
+                        Why is the <span class="clickable-word" onclick="translateWord(event, 'pampiniform plexus', 'الضفيرة المشطية')">pampiniform plexus</span> important?
+                    </div>
+                    <button class="toggle-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="answer answer-hidden">
+                        <h4>Answer:</h4>
+                        <p onclick="speak(this)">
+                            The pampiniform plexus wraps around the testicular artery and provides <span class="clickable-word" onclick="translateWord(event, 'countercurrent heat exchange', 'تبادل حراري عكسي')">countercurrent heat exchange</span> mechanism to assist <span class="clickable-word" onclick="translateWord(event, 'testicular thermoregulation', 'تنظيم درجة حرارة الخصية')">testicular thermoregulation</span>. This keeps the testes cooler than body temperature, which is essential for sperm production.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <span class="question-number">Q22</span>
+                    <div class="question-text" onclick="speak(this)">
+                        In <span class="clickable-word" onclick="translateWord(event, 'immuno-castration', 'الإخصاء المناعي')">immuno-castration</span>, what is the main advantage over surgical castration?
+                    </div>
+                    <button class="toggle-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="answer answer-hidden">
+                        <h4>Answer:</h4>
+                        <p onclick="speak(this)">
+                            Immuno-castration can induce <span class="clickable-word" onclick="translateWord(event, 'azoospermia', 'انعدام النطاف')">azoospermia</span> (absence of sperm) <strong>without inhibiting sexual characteristics</strong> <span class="arabic-text">(دون تثبيط الخصائص الجنسية)</span>. The animal becomes sterile but retains secondary sexual characteristics.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Arabic Terminology Section -->
+            <div class="section">
+                <h2 class="section-title">Key Arabic Terminology Summary - المصطلحات الرئيسية</h2>
+                
+                <div class="question">
+                    <span class="question-number">Vocab</span>
+                    <div class="question-text" onclick="speak(this)">
+                        Essential Medical Terms with Arabic Translation
+                    </div>
+                    <button class="toggle-btn" onclick="toggleAnswer(this)">Show Terms</button>
+                    <div class="answer answer-hidden">
+                        <h4>Core Terminology:</h4>
+                        <ul onclick="speak(this)" style="column-count: 2; column-gap: 30px;">
+                            <li><span class="clickable-word" onclick="translateWord(event, 'Castration', 'الإخصاء / الخصي')">Castration</span> = <span class="arabic-text">الإخصاء / الخصي</span></li>
+                            <li><span class="clickable-word" onclick="translateWord(event, 'Testis', 'الخصية')">Testis</span> = <span class="arabic-text">الخصية</span></li>
+                            <li><span class="clickable-word" onclick="translateWord(event, 'Scrotum', 'كيس الصفن')">Scrotum</span> = <span class="arabic-text">كيس الصفن</span></li>
+                            <li><span class="clickable-word" onclick="translateWord(event, 'Spermatic cord', 'الحبل المنوي')">Spermatic cord</span> = <span class="arabic-text">الحبل المنوي</span></li>
+                            <li><span class="clickable-word" onclick="translateWord(event, 'Epididymis', 'البربخ')">Epididymis</span> = <span class="arabic-text">البربخ</span></li>
+                            <li><span class="clickable-word" onclick="translateWord(event, 'Tunica vaginalis', 'الغلالة الغمدية')">Tunica vaginalis</span> = <span class="arabic-text">الغلالة الغمدية</span></li>
+                            <li><span class="clickable-word" onclick="translateWord(event, 'Incision', 'شق')">Incision</span> = <span class="arabic-text">شق</span></li>
+                            <li><span class="clickable-word" onclick="translateWord(event, 'Ligation', 'ربط')">Ligation</span> = <span class="arabic-text">ربط</span></li>
+                            <li><span class="clickable-word" onclick="translateWord(event, 'Hemorrhage', 'نزيف')">Hemorrhage</span> = <span class="arabic-text">نزيف</span></li>
+                            <li><span class="clickable-word" onclick="translateWord(event, 'Infection', 'عدوى')">Infection</span> = <span class="arabic-text">عدوى</span></li>
+                            <li><span class="clickable-word" onclick="translateWord(event, 'Anesthesia', 'تخدير')">Anesthesia</span> = <span class="arabic-text">تخدير</span></li>
+                            <li><span class="clickable-word" onclick="translateWord(event, 'Local anesthesia', 'تخدير موضعي')">Local anesthesia</span> = <span class="arabic-text">تخدير موضعي</span></li>
+                            <li><span class="clickable-word" onclick="translateWord(event, 'General anesthesia', 'تخدير عام')">General anesthesia</span> = <span class="arabic-text">تخدير عام</span></li>
+                            <li><span class="clickable-word" onclick="translateWord(event, 'Wound', 'جرح')">Wound</span> = <span class="arabic-text">جرح</span></li>
+                            <li><span class="clickable-word" onclick="translateWord(event, 'Swelling', 'تورم')">Swelling</span> = <span class="arabic-text">تورم</span></li>
+                            <li><span class="clickable-word" onclick="translateWord(event, 'Pain', 'ألم')">Pain</span> = <span class="arabic-text">ألم</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="footer">
+            <p>📚 Comprehensive Castration Exam Study Guide</p>
+            <p>Click on any highlighted word to hear pronunciation or see Arabic translation</p>
+            <p style="margin-top: 10px;">© 2024 Interactive Medical Education | Good Luck on Your Exam! 🎓</p>
+        </div>
+    </div>
+
+    <!-- Translation Popup -->
+    <div class="translation-popup" id="translationPopup">
+        <div class="translation-header">
+            <span id="popupWord"></span>
+            <span class="close-popup" onclick="closePopup()">✖</span>
+        </div>
+        <div class="translation-content">
+            <div class="translation-text" id="popupTranslation"></div>
+        </div>
+    </div>
+
+    <script>
+        // Text-to-Speech functionality
+        let currentUtterance = null;
+        let voices = [];
+
+        // Load available voices
+        function loadVoices() {
+            voices = speechSynthesis.getVoices();
+            const voiceSelect = document.getElementById('voiceSelect');
+            voiceSelect.innerHTML = '<option value="">Select Voice (Default)</option>';
+            
+            voices.forEach((voice, index) => {
+                const option = document.createElement('option');
+                option.value = index;
+                option.textContent = `${voice.name} (${voice.lang})`;
+                if (voice.lang.startsWith('en')) {
+                    voiceSelect.appendChild(option);
+                }
+            });
+        }
+
+        // Initialize voices
+        speechSynthesis.onvoiceschanged = loadVoices;
+        loadVoices();
+
+        function speak(element) {
+            stopSpeaking();
+            const text = element.textContent || element.innerText;
+            currentUtterance = new SpeechSynthesisUtterance(text);
+            
+            const voiceSelect = document.getElementById('voiceSelect');
+            if (voiceSelect.value) {
+                currentUtterance.voice = voices[voiceSelect.value];
+            }
+            
+            currentUtterance.rate = 0.9;
+            currentUtterance.pitch = 1;
+            currentUtterance.volume = 1;
+            
+            element.classList.add('speaking');
+            currentUtterance.onend = () => {
+                element.classList.remove('speaking');
+            };
+            
+            speechSynthesis.speak(currentUtterance);
+        }
+
+        function stopSpeaking() {
+            speechSynthesis.cancel();
+            document.querySelectorAll('.speaking').forEach(el => {
+                el.classList.remove('speaking');
+            });
+        }
+
+        function changeVoice() {
+            if (currentUtterance) {
+                stopSpeaking();
+            }
+        }
+
+        function readEntirePage() {
+            stopSpeaking();
+            const content = document.getElementById('mainContent');
+            const text = content.innerText;
+            currentUtterance = new SpeechSynthesisUtterance(text);
+            
+            const voiceSelect = document.getElementById('voiceSelect');
+            if (voiceSelect.value) {
+                currentUtterance.voice = voices[voiceSelect.value];
+            }
+            
+            currentUtterance.rate = 0.9;
+            speechSynthesis.speak(currentUtterance);
+        }
+
+        // Translation functionality
+        function translateWord(event, word, translation) {
+            event.stopPropagation();
+            
+            const popup = document.getElementById('translationPopup');
+            const popupWord = document.getElementById('popupWord');
+            const popupTranslation = document.getElementById('popupTranslation');
+            
+            popupWord.textContent = word;
+            popupTranslation.textContent = translation;
+            
+            popup.style.left = event.pageX + 'px';
+            popup.style.top = event.pageY + 'px';
+            popup.classList.add('show');
+            
+            // Speak the word
+            const utterance = new SpeechSynthesisUtterance(word);
+            utterance.rate = 0.8;
+            speechSynthesis.speak(utterance);
+        }
+
+        function closePopup() {
+            document.getElementById('translationPopup').classList.remove('show');
+        }
+
+        // Close popup when clicking outside
+        document.addEventListener('click', function(event) {
+            const popup = document.getElementById('translationPopup');
+            if (!event.target.closest('.clickable-word') && !event.target.closest('.translation-popup')) {
+                popup.classList.remove('show');
+            }
+        });
+
+        // Toggle answer visibility
+        function toggleAnswer(button) {
+            const answer = button.nextElementSibling;
+            answer.classList.toggle('answer-hidden');
+            button.textContent = answer.classList.contains('answer-hidden') ? 'Show Answer' : 'Hide Answer';
+        }
+
+        // Toggle all answers
+        function toggleAllAnswers() {
+            const answers = document.querySelectorAll('.answer');
+            const buttons = document.querySelectorAll('.toggle-btn');
+            const allHidden = Array.from(answers).every(answer => answer.classList.contains('answer-hidden'));
+            
+            answers.forEach((answer, index) => {
+                if (allHidden) {
+                    answer.classList.remove('answer-hidden');
+                    buttons[index].textContent = 'Hide Answer';
+                } else {
+                    answer.classList.add('answer-hidden');
+                    buttons[index].textContent = 'Show Answer';
+                }
+            });
+        }
+
+        // Progress bar
+        window.addEventListener('scroll', function() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progressFill').style.width = scrolled + '%';
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closePopup();
+                stopSpeaking();
+            }
+        });
+    </script>
+</body>
+</html>
